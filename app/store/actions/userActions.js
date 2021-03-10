@@ -16,6 +16,7 @@ import {
 } from '../constants/userConstants';
 import { saveDataToStorage } from '../../utils/asyncStorageFunctions';
 import AsyncStorage from '@react-native-community/async-storage';
+import { URL } from '../../constants/Variables';
 export const authenticate = (data) => async (dispatch) => {
   dispatch({
     type: USER_LOGIN_SUCCESS,
@@ -32,7 +33,7 @@ export const login = (email, password) => async (dispatch) => {
     };
     console.log(config);
     const { data } = await axios.post(
-      'http://192.168.100.5:5000/api/users/login',
+      `${URL}/api/users/login`,
       { email, password },
       config
     );
@@ -64,11 +65,7 @@ export const register = (userData) => async (dispatch) => {
     const config = {
       headers: { 'Content-Type': 'application/json' },
     };
-    const { data } = await axios.post(
-      'http://192.168.100.5:5000/api/users',
-      userData,
-      config
-    );
+    const { data } = await axios.post(`${URL}/api/users`, userData, config);
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data,
@@ -105,7 +102,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`/api/users/${id}`, config);
+    const { data } = await axios.get(`${URL}/api/users/${id}`, config);
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: data,
@@ -125,9 +122,7 @@ export const listTopLawyers = () => async (dispatch) => {
   try {
     dispatch({ type: USER_LAWYERS_TOP_LIST_REQUEST });
 
-    const { data } = await axios.get(
-      'http://192.168.100.5:5000/api/users/lawyers/top'
-    );
+    const { data } = await axios.get(`${URL}/api/users/lawyers/top`);
     dispatch({ type: USER_LAWYERS_TOP_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

@@ -1,3 +1,4 @@
+export const URL = 'http://192.168.100.5:5000';
 export const CITIES = [
   {
     label: 'Tbilisi',

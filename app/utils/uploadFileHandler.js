@@ -15,11 +15,7 @@ export default uploadFileHandler = async (file) => {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const { data } = await axios.post(
-      'http://192.168.100.5:5000/api/upload',
-      formData,
-      config
-    );
+    const { data } = await axios.post('api/upload', formData, config);
 
     return data.split('\\').join('/');
   } catch (error) {

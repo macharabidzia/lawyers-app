@@ -106,7 +106,6 @@ const RegisterScreen = (props) => {
       isLawyer,
       ...formState.inputValues,
     };
-    console.log(userData);
     dispatch(register(userData));
   };
 
